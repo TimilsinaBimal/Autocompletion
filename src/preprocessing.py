@@ -11,10 +11,9 @@ def load_data(filename):
 
 
 def tokenize(data, return_sentences=True):
-    sentences = data.split('\r\n')
+    sentences = data.split("\r\n")
     sentences = [sent.strip() for sent in sentences]
     sentences = [sent for sent in sentences if len(sent) > 0]
-
     word_tokens = [word_tokenize(sent.lower()) for sent in sentences]
     if return_sentences:
         return sentences, word_tokens
@@ -34,8 +33,8 @@ def count_words(data):
     return cnt
 
 
-def create_vocabulary(
-        word_count, min_frequency=0, max_words=0):
+def create_vocabulary(data, min_frequency=0, max_words=0):
+    word_count = count_words(data)
     if min_frequency > 0:
         vocabulary = []
         for word, count in word_count.items():

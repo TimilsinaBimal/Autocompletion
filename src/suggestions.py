@@ -1,3 +1,6 @@
+from modeling import calculate_probabilities
+
+
 def suggest_a_word(previous_tokens,
                    n_gram_counts,
                    n_plusone_gram_counts,
@@ -49,9 +52,9 @@ def get_suggestions(previous_tokens,
     )
 
     sorted_probabilities = {
-        word : probability for word, probability in \
+        word: probability for word, probability in
         sorted(probabilities.items(), key=lambda item: item[1], reverse=True)
-            }
+    }
     if starts_with:
         suggestions = dict()
         for word, prob in sorted_probabilities.items():
