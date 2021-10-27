@@ -27,8 +27,10 @@ def load_models():
 
 def get_suggestion(sentence, starts_with=None, n_suggestions=2):
     tokenized_sentence = word_tokenize(sentence)
-    unigram_counts = pickle.load(open("models/unigram_counts_2.pkl", 'rb'))
-    bigram_counts = pickle.load(open("models/bigram_counts_2.pkl", 'rb'))
+    n_gram_count_filepath = "models/unigram_counts_2.pkl"
+    nplusone_gram_count_filepath = "models/bigram_counts_2.pkl"
+    unigram_counts = pickle.load(open(n_gram_count_filepath, 'rb'))
+    bigram_counts = pickle.load(open(nplusone_gram_count_filepath, 'rb'))
     vocabulary = pickle.load(open("models/vocabulary_2.pkl", 'rb'))
 
     suggestions = get_suggestions(
@@ -51,11 +53,18 @@ def main():
 
     suggestions = get_suggestion(
         sentence, starts_with=starts_with, n_suggestions=n_suggestions)
+
+    if starts_with:
+        print(
+            f"The suggestions for the sentence: \"{sentence}\" starting with {starts_with} are: ")
+    else:
+        print(f"The suggestions for the sentence: \"{sentence}\" are: ")
     if probability.lower() == 'y':
-        print(suggestions)
+        for word, prob in suggestions:
+            print(f"{word}    probability: {prob}")
     elif probability.lower() == 'n':
-        words = [word[0] for word in suggestions]
-        print(words)
+        for word in suggestions:
+            print(f"{word[0]}", end=", ")
 
 
 if __name__ == "__main__":
