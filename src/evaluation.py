@@ -1,4 +1,4 @@
-from modeling import calculate_probabilities, calculate_probability
+from modeling import calculate_probability
 
 
 def perplexity(sentence, n_gram_counts,
